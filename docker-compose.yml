@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: event_management
+      MYSQL_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  backend:
+    build:
+      context: ./backend/eventmanagement
+      dockerfile: Dockerfile
+    container_name: spring-backend
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/event_management
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    ports:
+      - "8080:8080"
+
+  auth:
+    build:
+      context: ./auth/authorization_module_backend
+      dockerfile: Dockerfile
+    container_name: node-auth
+    depends_on:
+      - mysql
+    environment:
+      DB_HOST: mysql
+      DB_USER: root
+      DB_PASSWORD: root
+      DB_NAME: event_management
+    ports:
+      - "5000:5000"
+
+  client:
+    build:
+      context: ./client/event-management-frontend
+      dockerfile: Dockerfile
+    container_name: react-client
+    ports:
+      - "3000:80"
+    depends_on:
+      - auth
+      - backend  # use the correct name here
+
+volumes:
+  mysql_data:

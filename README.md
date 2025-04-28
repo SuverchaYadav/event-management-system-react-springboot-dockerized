@@ -60,11 +60,15 @@ This is a full-stack **Event Management System** built with:
 ```bash
 git clone https://github.com/SuverchaYadav/event-management-system-react-springboot-dockerized.git
 cd event-management-system-react-springboot-dockerized
+```
 
-### 2. Start the containers
+#### 2. Start the containers
+```bash
 docker-compose up --build
+```
 
-### 3. Access the app
+#### 3. Access the app
+```bash
 Frontend: http://localhost:3000
 
 Backend API (Spring Boot): http://localhost:8080
@@ -72,10 +76,11 @@ Backend API (Spring Boot): http://localhost:8080
 Auth API (Node.js): http://localhost:5000
 
 MySQL: Accessible on port 3306
+```
 
-🌐 Environment Variables
+### 🌐 Environment Variables
 Make sure the following environment variables are configured properly:
-
+```bash
 🟦 Auth Service (auth/.env or in Dockerfile):
 DB_HOST=mysql
 DB_USER=root
@@ -86,10 +91,11 @@ DB_NAME=event_management
 spring.datasource.url=jdbc:mysql://mysql:3306/event_management
 spring.datasource.username=root
 spring.datasource.password=root
+```
 
-⚙️ (Optional) Build & Run Locally Without Docker
+### ⚙️ (Optional) Build & Run Locally Without Docker
 Useful for debugging or running modules independently.
-
+```bash
 🟩 React Frontend
 cd client
 npm install
@@ -126,14 +132,15 @@ java -jar target/*.jar
     <artifactId>spring-boot-starter-security</artifactId>
   </dependency>
 </dependencies>
+```
 
-🤝 Contributors
+## 🤝 Contributors
 Suvercha Yadav – GitHub
 
-📜 License
+## 📜 License
 This project is open source and available under the MIT License.
 
-📌 Notes
+## 📌 Notes
 ⚠️ If you're using Java 21+, make sure your Dockerfile uses the correct JDK image.
 
 📦 Your Spring Boot .jar file is ~52MB, which exceeds GitHub’s limit — consider using Git LFS or excluding it via .gitignore.
